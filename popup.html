@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Prompt Pad</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <!-- 列表 -->
+  <section id="view-list" class="view">
+    <header class="bar">
+      <input id="search" type="search" placeholder="搜索标题、内容、标签…" autocomplete="off" spellcheck="false">
+      <button id="btn-new" class="btn primary" title="新建提示词">＋ 新建</button>
+    </header>
+    <nav id="tags" class="tags"></nav>
+    <ul id="list" class="list"></ul>
+    <div id="empty" class="empty" hidden></div>
+    <footer class="bar foot">
+      <span id="count" class="muted"></span>
+      <span class="spacer"></span>
+      <button id="btn-import" class="btn ghost" title="从 JSON 文件导入">导入</button>
+      <button id="btn-export" class="btn ghost" title="导出为 JSON 文件">导出</button>
+      <input id="file" type="file" accept=".json,application/json" hidden>
+    </footer>
+  </section>
+
+  <!-- 新建 / 编辑 -->
+  <section id="view-edit" class="view" hidden>
+    <header class="bar">
+      <button class="btn ghost" data-back title="返回 (Esc)">‹ 返回</button>
+      <h1 id="edit-heading">新建提示词</h1>
+    </header>
+    <form id="edit-form" class="form">
+      <label>标题
+        <input id="f-title" type="text" placeholder="留空则取内容第一行" autocomplete="off">
+      </label>
+      <label>内容
+        <textarea id="f-content" rows="9" placeholder="提示词全文。可用 {{变量}} 占位，使用时会弹出表单填写。" required></textarea>
+      </label>
+      <label>分组标签
+        <input id="f-tags" type="text" placeholder="用逗号或空格分隔，如：开发, 写作" autocomplete="off">
+      </label>
+      <label class="check">
+        <input id="f-pinned" type="checkbox"> 置顶
+      </label>
+      <div class="actions">
+        <span class="muted small">Ctrl+Enter 保存</span>
+        <span class="spacer"></span>
+        <button type="button" class="btn" data-back>取消</button>
+        <button type="submit" class="btn primary">保存</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- 变量表单 -->
+  <section id="view-vars" class="view" hidden>
+    <header class="bar">
+      <button class="btn ghost" data-back title="返回 (Esc)">‹ 返回</button>
+      <h1 id="vars-heading">填写变量</h1>
+    </header>
+    <form id="vars-form" class="form">
+      <div id="vars-fields"></div>
+      <div class="actions">
+        <span class="muted small">Enter 填入，Shift+Enter 换行</span>
+        <span class="spacer"></span>
+        <button type="button" class="btn" data-back>取消</button>
+        <button type="submit" class="btn primary">填入</button>
+      </div>
+    </form>
+  </section>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
